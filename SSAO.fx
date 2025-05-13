@@ -47,7 +47,7 @@ float GetLinearizedDepth(float2 texcoord)
     const float C = 0.01;
     depth = (exp(depth * log(C + 1.0)) - 1.0) / C;
     const float N = 1.0;
-    depth /= fFarPlane.0 - depth * (fFarPlane - N);
+    depth /= fFarPlane - depth * (fFarPlane - N);
 
     return depth;
     
@@ -59,8 +59,8 @@ float calculate_ambient(float2 uv) {
         return 0.0;
     float occ = 0.0;
     float radius = fRadius/ ReShade::ScreenSize.x;
-    float dx[8] = {-1.0,1.0,0.0,0.0,0.707,-0.707,0.707,-0.707};
-    float dy[8] = {0.0,0.0,-1.0,1.0,0.707.,-0.707,-0.707,0.707};
+    float dx[8] = {-1.0,1.0,0.0,0.0, 0.707, -0.707, 0.707,-0.707};
+    float dy[8] = {0.0,0.0,-1.0,1.0, 0.707, -0.707 ,-0.707, 0.707};
     [loop]
     for (int i = 0; i<8; i++){
         float2 k = uv + float2(dx[i]*radius, dy[i]*radius);
